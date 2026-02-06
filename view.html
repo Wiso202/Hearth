@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Instant pour Toi</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/view.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="loader">L'Instant se prépare...</div>
+
+    <div id="main-content" style="display:none;">
+        <section class="v-step">
+            <div class="photo-frame">
+                <img id="display-photo" src="" alt="Notre moment">
+            </div>
+            <h1 id="display-titre" class="fade-in"></h1>
+            <div class="scroll-indicator">Défile doucement ↓</div>
+        </section>
+
+        <section class="v-step">
+            <h2 class="section-title">Nos éclats de vie</h2>
+            <div class="memory-grid">
+                <div class="memory-card" id="m1"></div>
+                <div class="memory-card" id="m2"></div>
+                <div class="memory-card" id="m3"></div>
+            </div>
+        </section>
+
+        <section class="v-step">
+            <div class="quiz-box">
+                <p id="display-question"></p>
+                <input type="text" id="quiz-answer" placeholder="Ta réponse...">
+                <button onclick="checkAnswer()" id="quiz-btn">Valider</button>
+            </div>
+        </section>
+
+        <section class="v-step" id="final-section" style="opacity: 0.2; pointer-events: none;">
+            <div id="magic-seal">
+                <div class="seal-inner">
+                    <span class="fingerprint">🔒</span>
+                    <p>Maintiens pour révéler ton cadeau</p>
+                </div>
+                <div class="seal-progress"></div>
+            </div>
+
+            <div id="surprise-finale" class="hidden">
+                <div class="confetti-canvas"></div>
+                <h2 class="reveal-text">Ton Cadeau</h2>
+                <div class="gift-content" id="display-message"></div>
+            </div>
+        </section>
+    </div>
+
+    <script src="assets/js/view-logic.js"></script>
+</body>
+</html>

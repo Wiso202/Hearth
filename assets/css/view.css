@@ -1,0 +1,83 @@
+/* --- assets/css/view.css --- */
+.v-step {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.photo-frame {
+    width: 280px;
+    height: 380px;
+    border-radius: 150px 150px 0 0; /* Forme d'arche élégante */
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255,255,255,0.2);
+    animation: slowFloat 6s ease-in-out infinite;
+}
+
+.photo-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+.memory-card {
+    background: var(--glass-bg);
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 15px;
+    border: 1px solid var(--input-border);
+    width: 100%;
+    max-width: 300px;
+}
+
+/* Le Scellé Tactile */
+#magic-seal {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--glass-bg);
+    border: 2px dashed var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.3s;
+}
+
+.seal-inner { pointer-events: none; }
+.fingerprint { font-size: 2.5rem; display: block; margin-bottom: 5px; }
+
+.seal-progress {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 4px solid var(--accent-color);
+    clip-path: circle(0% at 50% 50%);
+    transition: clip-path 3s linear;
+}
+
+#magic-seal.active .seal-progress { clip-path: circle(100% at 50% 50%); }
+
+.hidden { display: none; }
+.reveal-text { font-family: 'Playfair Display'; color: var(--accent-color); }
+.gift-content { font-size: 1.3rem; line-height: 1.6; margin-top: 20px; white-space: pre-wrap; }
+
+@keyframes slowFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+.heart-particle {
+    position: fixed;
+    top: -10%;
+    z-index: 999;
+    font-size: 20px;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(110vh) rotate(360deg); }
+}

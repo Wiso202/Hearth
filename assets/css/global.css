@@ -1,0 +1,147 @@
+:root {
+    --bg-color: #0f0f0f;
+    --accent-color: #e63946; /* Rouge passion élégant */
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden; /* Pour l'effet immersif */
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background avec un léger dégradé radial */
+body::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%);
+    z-index: -1;
+}
+
+.hero {
+    text-align: center;
+    max-width: 600px;
+    padding: 20px;
+}
+
+/* Animations d'entrée */
+.fade-in {
+    animation: fadeInUp 1.2s ease forwards;
+}
+
+.fade-in-delayed {
+    opacity: 0;
+    animation: fadeInUp 1.2s ease forwards 0.8s;
+}
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -1px;
+}
+
+.eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Section Visuelle (Cartes flottantes) */
+.visual-reveal {
+    margin: 60px 0;
+    perspective: 1000px;
+}
+
+.card-stack {
+    position: relative;
+    width: 120px;
+    height: 160px;
+    margin: 0 auto;
+}
+
+.card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    transition: transform 0.5s ease;
+}
+
+.main-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    z-index: 3;
+    animation: float 3s ease-in-out infinite;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card-1 { transform: rotate(-10deg) translateX(-20px); z-index: 1; opacity: 0.5; }
+.card-2 { transform: rotate(10deg) translateX(20px); z-index: 2; opacity: 0.8; }
+
+/* Bouton Stylisé */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--text-primary);
+    color: var(--bg-color);
+    padding: 18px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.meta {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+/* Animations Keyframes */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-15px) rotate(2deg); }
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créer votre Instant | L'Instant</title>
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/create.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="progress-bar"><div id="progress"></div></div>
+
+    <main class="create-container">
+        <form id="love-form">
+            <section class="step active" data-step="1">
+                <span class="step-number">01</span>
+                <h2>Comment tout a commencé ?</h2>
+                <p>Une petite phrase sur votre rencontre ou ce que tu as ressenti ce jour-là.</p>
+                <textarea name="titre_debut" placeholder="Si on se rencontrait aujourd'hui..." required></textarea>
+                <div class="file-upload">
+                <label for="photo_input" class="custom-file-upload">
+                    <span>📸 Choisir notre plus belle photo</span>
+                </label>
+                <input type="file" id="photo_input" accept="image/*" required>
+                <input type="hidden" name="photo_url" id="photo_base64"> <div id="preview-container"></div>
+                </div>
+            </section>
+
+            <section class="step" data-step="2">
+                <span class="step-number">02</span>
+                <h2>Vos moments gravés</h2>
+                <p>Trois souvenirs, trois flashs de votre histoire.</p>
+                <input type="text" name="souvenir_1" placeholder="Un moment fort..." required>
+                <input type="text" name="souvenir_2" placeholder="Un fou rire..." required>
+                <input type="text" name="souvenir_3" placeholder="Une épreuve surmontée..." required>
+            </section>
+
+            <section class="step" data-step="3">
+                <span class="step-number">03</span>
+                <h2>Le test de complicité</h2>
+                <p>Une question pour la faire sourire ou réfléchir.</p>
+                <input type="text" name="question_jeu" placeholder="Ta question (ex: Quel est notre resto ?)" required>
+                <input type="text" name="reponse_jeu" placeholder="La réponse attendue" required>
+            </section>
+
+            <section class="step" data-step="4">
+                <span class="step-number">04</span>
+                <h2>Le message final</h2>
+                <p>Ouvre ton cœur. Ce texte ne sera révélé qu'après son clic.</p>
+                <textarea name="message_final" placeholder="Je t'aime parce que..." required></textarea>
+                <input type="date" name="date_ouverture" required>
+            </section>
+
+            <div class="nav-buttons">
+                <button type="button" id="prevBtn" class="btn-secondary" style="display:none;">Retour</button>
+                <button type="button" id="nextBtn" class="btn-primary">Continuer</button>
+                <button type="submit" id="submitBtn" class="btn-primary" style="display:none;">Générer l'Instant ❤️</button>
+            </div>
+        </form>
+    </main>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <h3>C'est prêt ! 🌹</h3>
+            <p>Voici le lien unique à lui envoyer :</p>
+            <div class="link-box">
+                <span id="generatedLink"></span>
+                <button onclick="copyLink()">Copier</button>
+            </div>
+            <a href="index.html" class="close-btn">Fermer</a>
+        </div>
+    </div>
+
+    <script src="assets/js/script-google.js"></script>
+</body>
+</html>
