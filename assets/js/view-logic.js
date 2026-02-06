@@ -1,5 +1,5 @@
 // 1. REMPLACE CETTE URL PAR LA TIENNE
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwDEi2a3YxiJEBd2InwC6KPlDMuI11k4e3xdHYkMT1AWk66XDDwtejj-VXlKCw7mzM7WA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt6DYomjuQbmhZ0HGmxebvqTZh9nAi5cIXXumt59PYiNk373Z7_yzP4RwErx-RvR3eaw/exec";
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
@@ -66,4 +66,5 @@ function createHeart() {
     heart.style.animationDuration = Math.random() * 2 + 3 + 's';
     document.body.appendChild(heart);
     setTimeout(() => { heart.remove(); }, 5000);
+
 }
