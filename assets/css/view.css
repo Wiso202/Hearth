@@ -1,82 +1,68 @@
-/* --- Global & Scroll --- */
-body {
-    background: #0f0f0f;
-    color: white;
-    font-family: 'Inter', sans-serif;
-    overflow-y: auto !important; /* Permet le scroll */
-    margin: 0;
+:root {
+    --bg: #1a1a1a;
+    --accent: #e63946;
+    --card-bg: #ffffff;
+    --glass: rgba(255, 255, 255, 0.08);
 }
 
-.v-step {
-    min-height: 100vh;
+body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+
+/* Scroll Horizontal pour les cartes */
+.horizontal-scroll-wrapper {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 20px;
-    text-align: center;
-}
-
-/* --- Polaroid --- */
-.polaroid {
-    background: white;
-    padding: 15px 15px 45px 15px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    transform: rotate(-2deg);
+    gap: 20px;
+    padding: 20px;
+    overflow-x: auto;
     width: 100%;
-    max-width: 300px;
-    transition: transform 0.5s;
-}
-.polaroid img { width: 100%; height: auto; display: block; filter: contrast(1.1); }
-.polaroid-caption { font-family: 'Playfair Display'; color: #333; margin-top: 15px; font-size: 1.2rem; }
-
-/* --- Cartes Souvenirs --- */
-.cards-container { width: 100%; max-width: 350px; }
-.memory-card {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    margin: 20px 0;
-    padding: 25px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-    text-align: left;
-}
-.memory-card strong { color: #e63946; }
-
-/* --- Enveloppe --- */
-.envelope-wrapper { width: 300px; height: 200px; position: relative; cursor: pointer; }
-.envelope { position: relative; width: 100%; height: 100%; background: #d1d1d1; border-radius: 0 0 10px 10px; }
-.flap {
-    position: absolute; top: 0; width: 0; height: 0;
-    border-left: 150px solid transparent; border-right: 150px solid transparent;
-    border-top: 100px solid #e1e1e1; transform-origin: top; transition: 0.5s; z-index: 3;
-}
-.letter {
-    position: absolute; bottom: 5px; left: 10px; width: 280px; height: 180px;
-    background: white; border-radius: 5px; z-index: 1; transition: 0.5s; padding: 20px; color: #333;
-}
-.open .flap { transform: rotateX(180deg); }
-.open .letter { transform: translateY(-120px); z-index: 4; height: auto; min-height: 200px; }
-
-/* --- Coeurs --- */
-.heart-particle {
-    position: fixed; top: -10%; z-index: 999;
-    font-size: 20px; pointer-events: none;
-    animation: fall linear forwards;
-}
-@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-.music-tag {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    padding: 8px 15px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    color: white;
-    z-index: 1000;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    opacity: 0.7;
+    scroll-snap-type: x mandatory;
 }
 
+.love-card {
+    min-width: 280px;
+    background: var(--card-bg);
+    color: #333;
+    padding: 30px;
+    border-radius: 15px;
+    position: relative;
+    scroll-snap-align: center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Décorations coeurs sur les cartes */
+.card-deco-1::after, .card-deco-2::before {
+    content: '❤️'; position: absolute; font-size: 1.2rem;
+}
+.card-deco-1::after { bottom: -10px; right: 10px; }
+.card-deco-2::before { top: -10px; left: 10px; }
+
+/* Polaroid */
+.polaroid-container { position: relative; width: 280px; transform: rotate(-2deg); }
+.polaroid { background: white; padding: 15px 15px 40px; box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+.polaroid img { width: 100%; height: auto; border: 1px solid #eee; }
+.polaroid-caption { color: #333; font-family: 'Playfair Display'; margin-top: 15px; font-size: 1.1rem; }
+.heart-badge { position: absolute; top: -10px; right: -10px; background: var(--accent); border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; z-index: 5; }
+
+/* Quiz Stylé */
+.quiz-container { background: var(--glass); padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; border: 1px solid rgba(255,255,255,0.1); }
+.quiz-input-group { display: flex; gap: 10px; margin-top: 20px; }
+input#quiz-answer { flex: 1; background: white; border: none; padding: 12px; border-radius: 8px; color: #333; }
+button#quiz-btn { background: #f39c12; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+
+/* Scellé Tactile */
+#magic-seal {
+    width: 180px; height: 180px; border-radius: 50%; background: var(--glass);
+    border: 2px dashed var(--accent); display: flex; align-items: center; justify-content: center;
+    position: relative; cursor: pointer; transition: transform 0.2s;
+}
+.seal-ui { text-align: center; font-size: 0.8rem; padding: 20px; pointer-events: none; }
+.fingerprint-icon { width: 50px; margin: 0 auto 10px; color: var(--accent); }
+.seal-progress-ring {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%; border: 4px solid var(--accent); clip-path: circle(0% at 50% 50%);
+}
+#magic-seal.active .seal-progress-ring { clip-path: circle(100% at 50% 50%); transition: clip-path 3s linear; }
+
+/* Message Final */
+.final-card { background: white; color: #333; padding: 40px; border-radius: 20px; margin-top: 20px; position: relative; }
+.final-card::before { content: '❤️'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 2rem; }
+.hidden { display: none; }
