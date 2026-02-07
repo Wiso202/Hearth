@@ -4,74 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pour Toi | L'Instant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/view.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-dark">
+
     <div id="loader">L'Instant se prépare...</div>
     <audio id="bg-music" loop></audio>
 
-    <main id="main-content" style="display:none;">
-        <section class="v-step">
-            <div class="polaroid-container">
-                <div class="polaroid">
-                    <img id="display-photo" src="" alt="Nous">
-                    <div class="polaroid-caption" id="display-titre"></div>
-                </div>
-                <div class="heart-badge">❤️</div>
-            </div>
-            <div class="scroll-hint">Fais défiler notre histoire ↓</div>
-        </section>
-
-        <section class="v-step">
-            <h2 class="romantic-title">Nos éclats de vie</h2>
-            <div class="horizontal-scroll-wrapper">
-                <div class="love-card card-deco-1">
-                    <span class="card-emoji">✨</span>
-                    <p>Je n'oublierai jamais <br><strong><span id="m1"></span></strong></p>
-                </div>
-                <div class="love-card card-deco-2">
-                    <span class="card-emoji">😂</span>
-                    <p>Je ris encore en repensant à <br><strong><span id="m2"></span></strong></p>
-                </div>
-                <div class="love-card card-deco-1">
-                    <span class="card-emoji">💪</span>
-                    <p>On est forts depuis qu'on a vécu <br><strong><span id="m3"></span></strong></p>
+    <main id="main-content" style="display:none;" class="container-fluid px-0">
+        
+        <section class="v-step d-flex align-items-center justify-content-center">
+            <div class="polaroid-wrapper" data-aos="zoom-in" data-aos-duration="1500">
+                <div class="polaroid-card">
+                    <img id="display-photo" src="" alt="Notre moment">
+                    <div class="polaroid-caption text-dark" id="display-titre"></div>
                 </div>
             </div>
+            <div class="scroll-down-icon">↓</div>
         </section>
 
-        <section class="v-step">
-            <div class="quiz-container">
-                <div class="quiz-header">Petit test de complicité...</div>
-                <p id="display-question" class="quiz-q"></p>
-                <div class="quiz-input-group">
-                    <input type="text" id="quiz-answer" placeholder="Ta réponse...">
-                    <button onclick="checkAnswer()" id="quiz-btn">Valider</button>
-                </div>
-            </div>
-        </section>
-
-        <section class="v-step" id="final-section" style="opacity: 0.1; pointer-events: none;">
-            <div id="magic-seal">
-                <div class="seal-ui">
-                    <div class="fingerprint-icon">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 11c0 3.517-2.103 6.543-5.122 7.93m10.244 0A9.001 9.001 0 0012 2.5a9 9 0 00-7.122 13.43m10.244 0A9 9 0 0112 18.5V21.5m6-10.5a6 6 0 00-12 0"></path></svg>
+        <section class="container py-5">
+            <h2 class="text-center mb-5 romantic-title" data-aos="fade-up">Nos éclats de vie</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-right" data-aos-delay="200">
+                    <div class="love-card h-100">
+                        <div class="card-deco">❤️</div>
+                        <span class="fs-1">✨</span>
+                        <p class="mt-3">Je n'oublierai jamais <br><strong><span id="m1"></span></strong></p>
                     </div>
-                    <p>Maintiens pour révéler ton cadeau</p>
                 </div>
-                <div class="seal-progress-ring"></div>
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="love-card h-100 alternate">
+                        <div class="card-deco">❤️</div>
+                        <span class="fs-1">😂</span>
+                        <p class="mt-3">Rien que d'y repenser, je ris de <br><strong><span id="m2"></span></strong></p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-left" data-aos-delay="600">
+                    <div class="love-card h-100">
+                        <div class="card-deco">❤️</div>
+                        <span class="fs-1">💪</span>
+                        <p class="mt-3">On est invincibles depuis <br><strong><span id="m3"></span></strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container v-step">
+            <div class="quiz-box shadow-lg p-5" data-aos="flip-left">
+                <h3 class="mb-4">Petit test de complicité...</h3>
+                <p id="display-question" class="lead italic mb-4"></p>
+                <div class="input-group mb-3 custom-input-group">
+                    <input type="text" id="quiz-answer" class="form-control" placeholder="Ta réponse...">
+                    <button class="btn btn-warning px-4" onclick="checkAnswer()" id="quiz-btn">Valider</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-section" class="v-step text-center" style="opacity: 0.1; pointer-events: none;">
+            <div id="magic-seal" class="mx-auto">
+                <div class="seal-content">
+                    <div class="fingerprint-pulse">👆</div>
+                    <p class="mt-2">Maintiens pour voir ton cadeau</p>
+                </div>
+                <div class="progress-ring"></div>
             </div>
 
-            <div id="surprise-reveal" class="hidden">
-                <div class="final-card">
-                    <h2>Mon Amour...</h2>
-                    <p id="display-message"></p>
+            <div id="surprise-reveal" class="hidden mt-5">
+                <div class="final-gift-card p-5 shadow-lg" data-aos="zoom-out-up">
+                    <h2 class="text-danger mb-4">Mon Amour...</h2>
+                    <p id="display-message" class="fs-4"></p>
                 </div>
             </div>
         </section>
     </main>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/view-logic.js"></script>
+    <script>AOS.init({ once: true });</script>
 </body>
 </html>
