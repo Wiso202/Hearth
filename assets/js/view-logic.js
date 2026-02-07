@@ -3,8 +3,6 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt6DYomjuQbmhZ0HGmx
 
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
-
-// Playlist 12 chansons
 const playlist = Array.from({length: 12}, (_, i) => `assets/audio/${i+1}.mp3`);
 
 if (id) {
@@ -13,11 +11,12 @@ if (id) {
     .then(data => {
         document.getElementById('loader').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-
-        // Injection des données
-        if(data.photo_url) {
-            document.getElementById('display-photo').src = data.photo_url;
-        }
+        
+        // Remplissage avec vérification d'image
+        const img = document.getElementById('display-photo');
+        img.src = data.photo_url;
+        img.onerror = () => { img.src = "assets/img/default-love.jpg"; }; // Image de secours si base64 foire
+        
         document.getElementById('display-titre').innerText = data.titre_debut;
         document.getElementById('m1').innerText = data.souvenir_1;
         document.getElementById('m2').innerText = data.souvenir_2;
@@ -37,42 +36,44 @@ function checkAnswer() {
         final.style.opacity = "1";
         final.style.pointerEvents = "all";
         final.scrollIntoView({behavior: "smooth"});
-        document.getElementById('quiz-btn').innerText = "Validé ! ❤️";
+        document.getElementById('quiz-btn').className = "btn btn-success";
     }
 }
 
-// Logique Scellé Tactile
+// FIX : Pluie de coeurs
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'heart-particle';
+    heart.innerHTML = '❤️';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    heart.style.opacity = Math.random();
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}
+
 let pressTimer;
 const seal = document.getElementById('magic-seal');
 
-const start = (e) => {
+const startPress = (e) => {
     e.preventDefault();
     seal.classList.add('active');
     pressTimer = setTimeout(() => {
-        seal.classList.add('hidden');
+        seal.classList.add('d-none');
         document.getElementById('surprise-reveal').classList.remove('hidden');
-        setInterval(createHeart, 300);
+        setInterval(createHeart, 200); // Lancement de la pluie de coeurs ici !
     }, 3000);
 };
 
-const stop = () => {
+const cancelPress = () => {
     clearTimeout(pressTimer);
     seal.classList.remove('active');
 };
 
-seal.addEventListener('mousedown', start);
-seal.addEventListener('touchstart', start);
-seal.addEventListener('mouseup', stop);
-seal.addEventListener('touchend', stop);
-
-function createHeart() {
-    const h = document.createElement('div');
-    h.className = 'heart-particle'; h.innerHTML = '❤️';
-    h.style.left = Math.random() * 100 + 'vw';
-    h.style.animation = `fall ${Math.random()*2+3}s linear forwards`;
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 5000);
-}
+seal.addEventListener('mousedown', startPress);
+seal.addEventListener('touchstart', startPress);
+seal.addEventListener('mouseup', cancelPress);
+seal.addEventListener('touchend', cancelPress);
 
 function setupMusic() {
     const audio = document.getElementById('bg-music');
@@ -83,5 +84,6 @@ function setupMusic() {
         }
     }, {once: true});
 }
+
 
 
