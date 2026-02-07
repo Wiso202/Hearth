@@ -6,54 +6,71 @@
     <title>Un Instant pour Toi</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/view.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div id="loader">L'Instant se prépare...</div>
 
-    <div id="main-content" style="display:none;">
+    <audio id="bg-music" loop></audio>
+
+    <main id="main-content" style="display:none;">
+        
         <section class="v-step">
-            <div class="photo-frame">
-                <img id="display-photo" src="" alt="Notre moment">
+            <div class="polaroid fade-in">
+                <img id="display-photo" src="" alt="Nous">
+                <div class="polaroid-caption" id="display-titre"></div>
             </div>
-            <h1 id="display-titre" class="fade-in"></h1>
-            <div class="scroll-indicator">Défile doucement ↓</div>
+            <div class="scroll-hint">Fais défiler notre histoire ↓</div>
         </section>
 
         <section class="v-step">
             <h2 class="section-title">Nos éclats de vie</h2>
-            <div class="memory-grid">
-                <div class="memory-card" id="m1"></div>
-                <div class="memory-card" id="m2"></div>
-                <div class="memory-card" id="m3"></div>
+            <div class="cards-container">
+                <div class="memory-card">
+                    <span class="card-icon">✨</span>
+                    <p>Je n'oublierai jamais <strong><span id="m1"></span></strong>.</p>
+                </div>
+                <div class="memory-card">
+                    <span class="card-icon">😂</span>
+                    <p>Rien que d'y repenser, je ris encore de <strong><span id="m2"></span></strong>.</p>
+                </div>
+                <div class="memory-card">
+                    <span class="card-icon">💪</span>
+                    <p>Je sais qu'on est forts depuis qu'on a traversé <strong><span id="m3"></span></strong>.</p>
+                </div>
             </div>
         </section>
 
         <section class="v-step">
-            <div class="quiz-box">
+            <div class="quiz-glass">
+                <h3>Petit test de complicité...</h3>
                 <p id="display-question"></p>
-                <input type="text" id="quiz-answer" placeholder="Ta réponse...">
-                <button onclick="checkAnswer()" id="quiz-btn">Valider</button>
-            </div>
-        </section>
-
-        <section class="v-step" id="final-section" style="opacity: 0.2; pointer-events: none;">
-            <div id="magic-seal">
-                <div class="seal-inner">
-                    <span class="fingerprint">🔒</span>
-                    <p>Maintiens pour révéler ton cadeau</p>
+                <div class="input-group">
+                    <input type="text" id="quiz-answer" placeholder="Ta réponse...">
+                    <button onclick="checkAnswer()" id="quiz-btn">Valider</button>
                 </div>
-                <div class="seal-progress"></div>
-            </div>
-
-            <div id="surprise-finale" class="hidden">
-                <div class="confetti-canvas"></div>
-                <h2 class="reveal-text">Ton Cadeau</h2>
-                <div class="gift-content" id="display-message"></div>
             </div>
         </section>
-    </div>
+
+        <section class="v-step" id="final-section">
+            <div class="envelope-wrapper">
+                <div id="envelope" class="envelope-wrapper" onclick="handleEnvelopeClick()">
+                    <div class="envelope">
+                        <div class="flap"></div>
+                        <div class="body"></div>
+                        <div class="letter">
+                            <div class="letter-content">
+                                <h2 style="color: #e63946; font-family: 'Playfair Display';">Mon Amour...</h2>
+                                <p id="display-message"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="envelope-hint">Réponds au quiz pour débloquer</p>
+            </div>
+        </section>
+    </main>
 
     <script src="assets/js/view-logic.js"></script>
 </body>
