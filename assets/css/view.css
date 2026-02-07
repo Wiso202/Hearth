@@ -1,77 +1,75 @@
-:root {
-    --romantic-red: #e63946;
-    --gold: #f1c40f;
-}
-
 body {
-    background-color: #121212 !important;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
     color: #fff;
     overflow-x: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
-/* Polaroid Premium */
-.polaroid-card {
+/* Polaroid Design */
+.polaroid-frame {
     background: #fff;
-    padding: 20px 20px 60px 20px;
-    box-shadow: 0 30px 60px rgba(0,0,0,0.8);
-    transform: rotate(-3deg);
-    max-width: 350px;
+    padding: 15px 15px 60px 15px;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    transform: rotate(-2deg);
+    max-width: 320px;
 }
-.polaroid-card img { width: 100%; height: auto; filter: contrast(1.1) saturate(1.1); }
-.polaroid-caption { font-family: 'Playfair Display'; font-size: 1.5rem; margin-top: 20px; }
+.polaroid-inner img { width: 100%; height: auto; }
+.polaroid-text { color: #333; font-family: 'Playfair Display'; font-size: 1.3rem; margin-top: 15px; text-align: center; }
 
-/* Cartes Love Design */
-.love-card {
-    background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
-    color: #333;
-    border-radius: 25px;
-    padding: 40px;
+/* Luxury Cards */
+.luxury-card {
     position: relative;
-    border: none;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 30px;
+    padding: 40px;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    backdrop-filter: blur(10px);
 }
-.love-card.alternate { background: linear-gradient(135deg, #fff5f5 0%, #ffffff 100%); }
-.love-card:hover { transform: translateY(-15px) rotate(2deg); }
-
-.card-deco {
-    position: absolute;
-    bottom: 15px;
-    right: 15px;
-    font-size: 1.5rem;
-    filter: drop-shadow(0 0 5px rgba(230,57,70,0.3));
+.luxury-card:hover {
+    transform: translateY(-20px);
+    border-color: #e63946;
+    background: rgba(255, 255, 255, 0.05);
 }
+.card-glow {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top right, rgba(230,57,70,0.1), transparent);
+}
+.card-icon { font-size: 3rem; display: block; margin-bottom: 20px; }
 
 /* Quiz Style */
-.quiz-box {
+.glass-quiz {
     background: rgba(255,255,255,0.05);
-    border-radius: 30px;
-    backdrop-filter: blur(15px);
+    border-radius: 40px;
+    padding: 50px;
+    width: 100%; max-width: 500px;
     border: 1px solid rgba(255,255,255,0.1);
 }
+input#quiz-answer {
+    background: transparent; border: none; border-bottom: 2px solid rgba(255,255,255,0.3);
+    color: #fff; width: 100%; padding: 10px; margin-bottom: 20px; outline: none;
+}
+button#quiz-btn {
+    background: #e63946; color: white; border: none; padding: 12px 30px; border-radius: 50px;
+}
 
-/* Scellé Tactile */
+/* Magic Seal */
 #magic-seal {
-    width: 200px; height: 200px;
-    border-radius: 50%;
-    background: rgba(230, 57, 70, 0.1);
-    border: 3px dashed var(--romantic-red);
+    width: 180px; height: 180px; border-radius: 50%;
+    background: rgba(230,57,70,0.1); border: 2px solid #e63946;
     display: flex; align-items: center; justify-content: center;
-    position: relative; cursor: pointer;
+    position: relative; cursor: pointer; margin: 0 auto;
 }
-.fingerprint-pulse { font-size: 3rem; animation: pulse 2s infinite; }
-.progress-ring {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 50%; border: 5px solid var(--romantic-red);
-    clip-path: circle(0% at 50% 50%);
+.progress-border {
+    position: absolute; top: -2px; left: -2px; width: 180px; height: 180px;
+    border-radius: 50%; border: 4px solid #e63946; clip-path: circle(0% at 50% 50%);
 }
-#magic-seal.active .progress-ring { clip-path: circle(100% at 50% 50%); transition: clip-path 3s linear; }
+#magic-seal.active .progress-border { clip-path: circle(100% at 50% 50%); transition: clip-path 3s linear; }
 
 /* Pluie de coeurs */
 .heart-particle {
-    position: fixed; top: -50px; z-index: 9999;
-    font-size: 24px; pointer-events: none;
-    animation: fall linear forwards;
+    position: fixed; top: -50px; z-index: 1000;
+    pointer-events: none; animation: fall linear forwards;
 }
-
 @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
