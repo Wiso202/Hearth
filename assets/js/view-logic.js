@@ -1,6 +1,6 @@
 // 1. REMPLACE CETTE URL PAR LA TIENNE
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzt6DYomjuQbmhZ0HGmxebvqTZh9nAi5cIXXumt59PYiNk373Z7_yzP4RwErx-RvR3eaw/exec";
-const SCRIPT_URL = "TON_URL_ICI";
+
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 
@@ -83,4 +83,5 @@ function setupMusic() {
         }
     }, {once: true});
 }
+
 
