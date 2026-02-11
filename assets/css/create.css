@@ -5,6 +5,15 @@
     --accent-color: #e63946;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --input-border: rgba(255, 255, 255, 0.1);
+    --diamond-glow: linear-gradient(135deg, #ffffff33 0%, #ffffff00 50%, #ffffff11 100%);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: white;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .create-container {
@@ -12,13 +21,13 @@
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
-    min-height: 80vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-/* Barre de progression discrète en haut */
+/* Barre de progression */
 .progress-bar {
     position: fixed;
     top: 0;
@@ -26,6 +35,7 @@
     width: 100%;
     height: 4px;
     background: rgba(255, 255, 255, 0.05);
+    z-index: 1000;
 }
 
 #progress {
@@ -33,18 +43,32 @@
     height: 100%;
     background: var(--accent-color);
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px var(--accent-color);
 }
 
-/* Gestion des étapes */
+/* Animation "Livre" des étapes */
 .step {
-    display: none; /* Caché par défaut */
-    animation: fadeInStep 0.6s ease forwards;
+    display: none;
+    opacity: 0;
+    transform-origin: center left;
 }
 
 .step.active {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: flipPage 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes flipPage {
+    0% { 
+        transform: perspective(1000px) rotateY(-30deg) translateX(-50px);
+        opacity: 0;
+    }
+    100% { 
+        transform: perspective(1000px) rotateY(0deg) translateX(0);
+        opacity: 1;
+    }
 }
 
 .step-number {
@@ -52,22 +76,21 @@
     font-size: 1.2rem;
     color: var(--accent-color);
     font-style: italic;
-    margin-bottom: -10px;
 }
 
 h2 {
     font-family: 'Playfair Display', serif;
     font-size: 2.2rem;
     line-height: 1.2;
+    margin-bottom: 5px;
 }
 
 p {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
-    margin-bottom: 10px;
 }
 
-/* Style des champs de saisie */
+/* Inputs & Textareas */
 input, textarea {
     width: 100%;
     background: var(--glass-bg);
@@ -84,6 +107,7 @@ input:focus, textarea:focus {
     outline: none;
     border-color: var(--accent-color);
     background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 0 15px rgba(230, 57, 70, 0.1);
 }
 
 textarea {
@@ -91,95 +115,124 @@ textarea {
     resize: none;
 }
 
-/* Boutons de navigation */
+/* Uploads (Photo & Audio) */
+.custom-file-upload, .audio-upload {
+    display: block;
+    background: var(--glass-bg);
+    border: 1px dashed var(--input-border);
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.custom-file-upload:hover, .audio-upload:hover {
+    border-color: var(--accent-color);
+    background: rgba(230, 57, 70, 0.05);
+}
+
+#preview-container img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 15px;
+    border: 1px solid var(--accent-color);
+}
+
+/* Boutons Navigation */
 .nav-buttons {
     margin-top: 40px;
     display: flex;
     gap: 15px;
 }
 
+.btn-primary, .btn-secondary {
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+    flex: 2;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.4);
+}
+
 .btn-secondary {
     background: transparent;
     border: 1px solid var(--input-border);
     color: white;
-    padding: 15px 25px;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: 500;
-}
-.custom-file-upload {
-    display: block;
-    background: var(--glass-bg);
-    border: 2px dashed var(--input-border);
-    padding: 20px;
-    text-align: center;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    flex: 1;
 }
 
-.custom-file-upload:hover {
-    border-color: var(--accent-color);
-    background: rgba(230, 57, 70, 0.05);
-}
-
-#photo_input {
-    display: none; /* On cache l'input moche par défaut */
-}
-
-/* Modal de succès (S'affiche après l'envoi) */
+/* Modal de succès */
 .modal {
-    display: none; /* Caché par défaut */
+    display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
-    backdrop-filter: blur(10px);
-    z-index: 100;
+    background: rgba(0,0,0,0.95);
+    backdrop-filter: blur(15px);
+    z-index: 2000;
     align-items: center;
     justify-content: center;
     padding: 20px;
 }
 
 .modal-content {
-    background: #1a1a1a;
+    background: #161616;
     padding: 40px;
-    border-radius: 24px;
+    border-radius: 30px;
     text-align: center;
-    max-width: 400px;
+    max-width: 450px;
     border: 1px solid var(--input-border);
+    position: relative;
+}
+
+.success-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
 }
 
 .link-box {
     background: #000;
-    padding: 15px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 15px;
     margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    border: 1px solid var(--accent-color);
+}
+
+#generatedLink {
+    display: block;
     word-break: break-all;
     font-family: monospace;
-    font-size: 0.8rem;
     color: var(--accent-color);
+    margin-bottom: 15px;
 }
 
 .link-box button {
     background: var(--accent-color);
-    border: none;
     color: white;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-weight: bold;
 }
 
 .close-btn {
-    color: white;
+    display: inline-block;
+    margin-top: 20px;
+    color: rgba(255,255,255,0.5);
     text-decoration: none;
     font-size: 0.9rem;
-    opacity: 0.5;
-}
-
-@keyframes fadeInStep {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
 }
