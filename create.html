@@ -6,7 +6,7 @@
     <title>Créer votre Instant | L'Instant</title>
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/create.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -19,12 +19,14 @@
                 <h2>Comment tout a commencé ?</h2>
                 <p>Une petite phrase sur votre rencontre ou ce que tu as ressenti ce jour-là.</p>
                 <textarea name="titre_debut" placeholder="Si on se rencontrait aujourd'hui..." required></textarea>
+                
                 <div class="file-upload">
-                <label for="photo_input" class="custom-file-upload">
-                    <span>📸 Choisir notre plus belle photo</span>
-                </label>
-                <input type="file" id="photo_input" accept="image/*" required>
-                <input type="hidden" name="photo_url" id="photo_base64"> <div id="preview-container"></div>
+                    <label for="photo_input" class="custom-file-upload">
+                        <span>📸 Choisir notre plus belle photo</span>
+                    </label>
+                    <input type="file" id="photo_input" accept="image/*" required>
+                    <input type="hidden" name="photo_base64" id="photo_base64"> 
+                    <div id="preview-container"></div>
                 </div>
             </section>
 
@@ -32,9 +34,11 @@
                 <span class="step-number">02</span>
                 <h2>Vos moments gravés</h2>
                 <p>Trois souvenirs, trois flashs de votre histoire.</p>
-                <input type="text" name="souvenir_1" placeholder="Un moment fort..." required>
-                <input type="text" name="souvenir_2" placeholder="Un fou rire..." required>
-                <input type="text" name="souvenir_3" placeholder="Une épreuve surmontée..." required>
+                <div class="input-group">
+                    <input type="text" name="souvenir_1" placeholder="Un moment fort..." required>
+                    <input type="text" name="souvenir_2" placeholder="Un fou rire..." required>
+                    <input type="text" name="souvenir_3" placeholder="Une épreuve surmontée..." required>
+                </div>
             </section>
 
             <section class="step" data-step="3">
@@ -49,8 +53,19 @@
                 <span class="step-number">04</span>
                 <h2>Le message final</h2>
                 <p>Ouvre ton cœur. Ce texte ne sera révélé qu'après son clic.</p>
-                <textarea name="message_final" placeholder="Je t'aime parce que..." required></textarea>
+                <textarea name="message_final" placeholder="Je t'aime parce que..." required style="font-family: 'Dancing Script', cursive; font-size: 1.2rem;"></textarea>
+                
+                <label class="mt-3">📅 Date de déverrouillage :</label>
                 <input type="date" name="date_ouverture" required>
+
+                <div class="audio-upload mt-4 p-3" style="background: rgba(255,255,255,0.05); border-radius: 15px; border: 1px dashed rgba(255,255,255,0.2);">
+                    <label style="cursor: pointer; display: block;">
+                        <span>🎤 Ajouter un message vocal (Optionnel)</span>
+                        <input type="file" id="audio_input" accept="audio/*" style="display:none;">
+                    </label>
+                    <input type="hidden" name="audio_base64" id="audio_base64">
+                    <div id="audio-status" style="font-size: 0.8rem; color: #e63946; margin-top: 5px;"></div>
+                </div>
             </section>
 
             <div class="nav-buttons">
@@ -63,16 +78,26 @@
 
     <div id="successModal" class="modal">
         <div class="modal-content">
-            <h3>C'est prêt ! 🌹</h3>
+            <div class="success-icon">🌹</div>
+            <h3>C'est prêt !</h3>
             <p>Voici le lien unique à lui envoyer :</p>
             <div class="link-box">
-                <span id="generatedLink"></span>
+                <span id="generatedLink">Génération du lien...</span>
                 <button onclick="copyLink()">Copier</button>
             </div>
-            <a href="index.html" class="close-btn">Fermer</a>
+            <a href="index.html" class="close-btn">Retour à l'accueil</a>
         </div>
     </div>
 
     <script src="assets/js/script-google.js"></script>
+    <script>
+        // Petite aide visuelle pour l'audio
+        document.getElementById('audio_input').addEventListener('change', function(e) {
+            const status = document.getElementById('audio-status');
+            if (e.target.files.length > 0) {
+                status.innerText = "✅ Message vocal enregistré !";
+            }
+        });
+    </script>
 </body>
 </html>
