@@ -7,10 +7,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/view.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <div id="custom-cursor">❤️</div>
+
     <div id="loader">L'Instant se prépare...</div>
+
+    <div id="countdown-overlay" style="display:none;">
+        <div class="countdown-content">
+            <span class="eyebrow">Patience, mon amour...</span>
+            <div id="timer">00j 00h 00m 00s</div>
+            <p>Ton Instant sera prêt le <span id="target-date"></span></p>
+        </div>
+    </div>
+
     <audio id="bg-music" loop></audio>
 
     <main id="main-content" style="display:none;">
@@ -18,44 +30,42 @@
         <section class="v-step container d-flex flex-column align-items-center">
             <div class="polaroid-frame" data-aos="zoom-out" data-aos-duration="2000">
                 <div class="polaroid-inner">
-                    <img id="display-photo" src="" alt="Nous">
+                    <img id="display-photo" src="" alt="Notre souvenir">
                     <div class="polaroid-text" id="display-titre"></div>
                 </div>
             </div>
             <div class="scroll-indicator" data-aos="fade-up">Fais défiler doucement...</div>
         </section>
 
-        <section class="container my-5">
-            <div class="row g-5 justify-content-center">
-                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="luxury-card">
-                        <div class="card-glow"></div>
-                        <div class="card-body">
-                            <span class="card-icon">✨</span>
-                            <p>Je n'oublierai jamais <strong><span id="m1"></span></strong></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="luxury-card">
-                        <div class="card-glow"></div>
-                        <div class="card-body">
-                            <span class="card-icon">😂</span>
-                            <p>Je ris encore en pensant à <strong><span id="m2"></span></strong></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
-                    <div class="luxury-card">
-                        <div class="card-glow"></div>
-                        <div class="card-body">
-                            <span class="card-icon">💪</span>
-                            <p>On est invincibles depuis <strong><span id="m3"></span></strong></p>
-                        </div>
-                    </div>
-                </div>
+        <section class="container py-5">
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+
+        <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-dot">✨</div>
+            <div class="luxury-card">
+                <span class="moment-date">Le début</span>
+                <p id="m1" class="moment-text"></p>
             </div>
-        </section>
+        </div>
+
+        <div class="timeline-item invert" data-aos="fade-left">
+            <div class="timeline-dot">📸</div>
+            <div class="luxury-card">
+                <span class="moment-date">Un souvenir</span>
+                <p id="m2" class="moment-text"></p>
+            </div>
+        </div>
+
+        <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-dot">🤣</div>
+            <div class="luxury-card">
+                <span class="moment-date">Pour toujours</span>
+                <p id="m3" class="moment-text"></p>
+            </div>
+        </div>
+    </div>
+</section>
 
         <section class="container v-step d-flex justify-content-center">
             <div class="glass-quiz" data-aos="flip-up">
@@ -79,8 +89,8 @@
 
             <div id="surprise-reveal" class="hidden mt-5">
                 <div class="gift-box" data-aos="zoom-in">
-                    <h2 class="romantic-title">Mon Amour...</h2>
-                    <p id="display-message"></p>
+                    <h2 class="romantic-title" style="cursor:pointer;">Mon Amour...</h2>
+                    <p id="display-message" style="font-family: 'Dancing Script', cursive;"></p>
                 </div>
             </div>
         </section>
@@ -88,6 +98,24 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="assets/js/view-logic.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+
+        // Logique du Curseur et Traînée
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            const particle = document.createElement('span');
+            particle.className = 'cursor-particle';
+            particle.innerHTML = '❤️';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            document.body.appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 1000);
+        });
+    </script>
 </body>
 </html>
