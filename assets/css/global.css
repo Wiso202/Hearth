@@ -1,9 +1,12 @@
+/* --- assets/css/global.css --- */
+
 :root {
     --bg-color: #0f0f0f;
     --accent-color: #e63946; /* Rouge passion élégant */
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.7);
     --glass-bg: rgba(255, 255, 255, 0.05);
+    --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 * {
@@ -16,19 +19,19 @@ body {
     background-color: var(--bg-color);
     color: var(--text-primary);
     font-family: 'Inter', sans-serif;
-    overflow: hidden; /* Pour l'effet immersif */
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden; /* Empêche le scroll horizontal sur mobile */
 }
 
-/* Background avec un léger dégradé radial */
+/* Background avec un dégradé radial fixe */
 body::before {
     content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: radial-gradient(circle at center, #1a1a1a 0%, #0f0f0f 100%);
     z-index: -1;
 }
@@ -36,7 +39,8 @@ body::before {
 .hero {
     text-align: center;
     max-width: 600px;
-    padding: 20px;
+    padding: 40px 20px;
+    width: 100%;
 }
 
 /* Animations d'entrée */
@@ -51,7 +55,7 @@ body::before {
 
 h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 4rem;
+    font-size: clamp(2.5rem, 8vw, 4rem); /* Taille adaptative */
     font-weight: 700;
     margin-bottom: 1rem;
     letter-spacing: -1px;
@@ -64,17 +68,19 @@ h1 {
     color: var(--accent-color);
     margin-bottom: 10px;
     display: block;
+    font-weight: 600;
 }
 
 .subtitle {
     font-size: 1.1rem;
     color: var(--text-secondary);
     line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 /* Section Visuelle (Cartes flottantes) */
 .visual-reveal {
-    margin: 60px 0;
+    margin: 50px 0;
     perspective: 1000px;
 }
 
@@ -93,7 +99,8 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: var(--glass-bg);
     backdrop-filter: blur(10px);
-    transition: transform 0.5s ease;
+    -webkit-backdrop-filter: blur(10px);
+    transition: var(--transition);
 }
 
 .main-card {
@@ -102,46 +109,64 @@ h1 {
     justify-content: center;
     font-size: 2rem;
     z-index: 3;
-    animation: float 3s ease-in-out infinite;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    animation: float 4s ease-in-out infinite;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    background: rgba(255, 255, 255, 0.08);
 }
 
-.card-1 { transform: rotate(-10deg) translateX(-20px); z-index: 1; opacity: 0.5; }
-.card-2 { transform: rotate(10deg) translateX(20px); z-index: 2; opacity: 0.8; }
+.card-1 { transform: rotate(-10deg) translateX(-25px); z-index: 1; opacity: 0.4; }
+.card-2 { transform: rotate(10deg) translateX(25px); z-index: 2; opacity: 0.6; }
 
 /* Bouton Stylisé */
 .btn-primary {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    gap: 12px;
     background-color: var(--text-primary);
     color: var(--bg-color);
-    padding: 18px 35px;
+    padding: 16px 35px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: all 0.3s ease;
+    transition: var(--transition);
+    border: 2px solid transparent;
 }
 
 .btn-primary:hover {
-    transform: scale(1.05);
+    transform: translateY(-3px);
     background-color: var(--accent-color);
     color: white;
+    box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3);
 }
 
 .meta {
-    margin-top: 15px;
+    margin-top: 20px;
     font-size: 0.8rem;
     color: var(--text-secondary);
+    display: block;
 }
 
 /* Animations Keyframes */
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(30px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0); 
+    }
 }
 
 @keyframes float {
     0%, 100% { transform: translateY(0) rotate(0); }
     50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+/* Mobile Optimisation */
+@media (max-width: 480px) {
+    h1 { font-size: 2.2rem; }
+    .subtitle { font-size: 1rem; }
+    .hero { padding: 15px; }
 }
